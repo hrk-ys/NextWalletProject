@@ -8,6 +8,7 @@
 
 #import "NWPCardCreateViewController.h"
 
+
 #import "NWPCardCreateBaseViewController.h"
 #import "NWPCardCaptureViewController.h"
 
@@ -73,6 +74,9 @@
     [vc.context saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
         [vc.presentingViewController dismissViewControllerAnimated:YES completion:nil];
     }];
+    
+    Mixpanel *mixpanel = [Mixpanel sharedInstance];
+    [mixpanel track:@"card_create" properties:@{ @"card_": vc.card.cardType}];
 }
 
 

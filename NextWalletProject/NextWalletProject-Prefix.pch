@@ -22,6 +22,7 @@
 
 
 #import <HYUtils.h>
+#import <Mixpanel.h>
 
 #import "NWPCard.h"
 

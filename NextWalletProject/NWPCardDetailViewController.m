@@ -33,7 +33,10 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    
+        self.screenName  = @"CardDetailView";
+    Mixpanel *mixpanel = [Mixpanel sharedInstance];
+    [mixpanel track:@"card_detail_view" properties:@{ @"card_type": self.card.cardType }];
+
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStylePlain target:self action:@selector(close:)];
 }
 

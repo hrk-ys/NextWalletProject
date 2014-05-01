@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <GAITrackedViewController.h>
 
-@interface NWPCardListViewController : UIViewController
+@interface NWPCardListViewController : GAITrackedViewController
 
 @end

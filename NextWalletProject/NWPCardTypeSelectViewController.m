@@ -48,6 +48,7 @@
     
     self.context = [NSManagedObjectContext context];
     self.card = [NWPCard createInContext:self.context];
+    self.card.orderNum = @([[NWPCard MR_aggregateOperation:@"max:" onAttribute:@"orderNum" withPredicate:nil inContext:self.context] integerValue] + 1);
     
     NSMutableArray* array = @[].mutableCopy;
     for (NSNumber* n in [NWPCard cardTypes]) {
@@ -63,6 +64,10 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    Mixpanel *mixpanel = [Mixpanel sharedInstance];
+    [mixpanel track:@"card_create_type_select"];
+
 }
 
 - (void)viewDidAppear:(BOOL)animated

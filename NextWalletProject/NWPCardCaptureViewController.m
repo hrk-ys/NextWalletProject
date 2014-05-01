@@ -105,6 +105,11 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    if (self.card.isInserted) {
+        Mixpanel *mixpanel = [Mixpanel sharedInstance];
+        [mixpanel track:self.isBackImage ? @"card_create_capture_back" : @"card_create_capture_front"];
+    }
 }
 - (void)viewDidAppear:(BOOL)animated
 {

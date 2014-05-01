@@ -37,12 +37,14 @@ PODS:
   - CocoaLumberjack/Core (1.8.1)
   - CocoaLumberjack/Extensions (1.8.1):
     - CocoaLumberjack/Core
+  - Google-Mobile-Ads-SDK (6.8.0)
   - GoogleAnalytics-iOS-SDK (3.0.3)
   - HYUtils (0.0.8):
     - CocoaLumberjack
   - JDStatusBarNotification (1.4.7)
   - LXReorderableCollectionViewFlowLayout (0.1.1)
   - MagicalRecord/Shorthand (2.2)
+  - Mixpanel (2.3.5)
   - SDWebImage (3.5.2):
     - SDWebImage/Core
   - SDWebImage/Core (3.5.2)
@@ -53,11 +55,13 @@ PODS:
 DEPENDENCIES:
   - AFNetworking (= 2.1.0)
   - BlocksKit (= 2.2.2)
+  - Google-Mobile-Ads-SDK (= 6.8.0)
   - GoogleAnalytics-iOS-SDK (= 3.0.3)
   - HYUtils (from `https://github.com/hrk-ys/HYUtils.git`, commit `60665d2334116f223e7d2418b8f06d655341eda8`)
   - JDStatusBarNotification (~> 1.4.7)
   - LXReorderableCollectionViewFlowLayout (= 0.1.1)
   - MagicalRecord/Shorthand (= 2.2)
+  - Mixpanel
   - SDWebImage (= 3.5.2)
   - SVProgressHUD (= 1.0)
   - ZBarSDK
@@ -72,11 +76,13 @@ SPEC CHECKSUMS:
   AFNetworking: c7d7901a83f631414c7eda1737261f696101a5cd
   BlocksKit: 125e4e69a62e3b85bacc5175737dae000b00b9fb
   CocoaLumberjack: 020378ec400d658923bf5887178394f65f052c90
+  Google-Mobile-Ads-SDK: a2f44db8addf12d04a864faac9b4ee05bc1cbeef
   GoogleAnalytics-iOS-SDK: 80c804540a992c59d88397b3f9567417ba1001dc
   HYUtils: d139fcd4286a4a4b27221289f74025d25a83f1da
   JDStatusBarNotification: 8801f6fcd7e2c2a8b01aaea5a9b049b1cc395491
   LXReorderableCollectionViewFlowLayout: 7476503803af6badf13fb6164953880396726cb3
   MagicalRecord: 95d49d74ef752cd52f6ad87bcb474817fc3978cf
+  Mixpanel: 79ff289920b67399475b93057ac11e48637585d7
   SDWebImage: fe7ce01ae4e0a884d168f59c9dd82d35baf8429e
   SVProgressHUD: 5e10939a296debf5fe5a5895eda9539b8b2114f1
   ZBarSDK: cb47d922d1178f9dd696b18c30e103022cfa4cc7

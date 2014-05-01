@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NWPSettingViewController : UIViewController
+@interface NWPSettingViewController : UITableViewController
 
 @end

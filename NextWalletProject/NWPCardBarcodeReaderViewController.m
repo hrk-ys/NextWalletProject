@@ -77,6 +77,12 @@
 
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    Mixpanel *mixpanel = [Mixpanel sharedInstance];
+    [mixpanel track:@"card_create_barcode"];
+}
 
 - (void)viewDidAppear:(BOOL)animated
 {

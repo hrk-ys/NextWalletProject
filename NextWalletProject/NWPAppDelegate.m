@@ -8,6 +8,8 @@
 
 #import "NWPAppDelegate.h"
 
+#import <GAI.h>
+
 @implementation NWPAppDelegate
 
 void HandleExceptions(NSException *exception)
@@ -22,6 +24,9 @@ void HandleExceptions(NSException *exception)
 {
     // Override point for customization after application launch.
     NSSetUncaughtExceptionHandler(&HandleExceptions);
+    
+    [[GAI sharedInstance] trackerWithTrackingId:@"UA-42236549-7"];
+    [Mixpanel sharedInstanceWithToken:@"514a4b337574349a01e384f690cee61a"];
     
     application.statusBarStyle = UIStatusBarStyleLightContent;
     

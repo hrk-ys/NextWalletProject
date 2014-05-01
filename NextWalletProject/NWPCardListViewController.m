@@ -8,18 +8,28 @@
 
 #import "NWPCardListViewController.h"
 
+
+#import <GADBannerView.h>
+#import <GADRequest.h>
+#import <LXReorderableCollectionViewFlowLayout.h>
+
 #import "NWPFadeAnimationController.h"
 
 #import "NWPCardDetailViewController.h"
 #import "NWPCardCell.h"
 
 @interface NWPCardListViewController ()
-<UICollectionViewDataSource, UIViewControllerTransitioningDelegate>
+<UICollectionViewDataSource, UIViewControllerTransitioningDelegate, GADBannerViewDelegate,
+LXReorderableCollectionViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
+@property (nonatomic) GADBannerView *adMobView;
+@property (nonatomic) BOOL           adMobIsVisible;
 
 @property (nonatomic) NSArray* dataSource;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *settingButtonBottomLayout;
+@property (weak, nonatomic) IBOutlet UIButton *settingButton;
 
 @end
 
@@ -38,11 +48,30 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    self.screenName  = @"CardListView";
     
     self.collectionView.backgroundColor = BG_COLOR;
     
     
     self.dataSource = [NWPCard findAllSortedBy:@"orderNum" ascending:YES];
+    
+    [self.settingButton setTintColor:[UIColor grayColor]];
+    
+    self.adMobView                    = [[GADBannerView alloc] init];
+    self.adMobView.height             = 0;
+    self.adMobView.delegate           = self;
+    self.adMobView.adUnitID           = @"ca-app-pub-1525765559709019/9130686947";
+    self.adMobView.rootViewController = self;
+    self.adMobView.adSize             = kGADAdSizeSmartBannerPortrait;
+    GADRequest *request = [GADRequest request];
+#ifdef DEBUG
+    request.testDevices = [NSArray arrayWithObjects:
+                           GAD_SIMULATOR_ID,
+                           nil];
+#endif
+    [self.adMobView loadRequest:request];
+    self.adMobView.hidden = YES;
+    [self.view addSubview:self.adMobView];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -58,6 +87,9 @@
             [self configureCell:cell];
         }
     }
+    
+    Mixpanel *mixpanel = [Mixpanel sharedInstance];    
+    [mixpanel track:@"card_list_view" properties:@{ @"card_num": @(self.dataSource.count) }];
 }
 
 
@@ -131,6 +163,94 @@
 - (id <UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed
 {
     return [[NWPFadeOutAnimationController alloc] init];
+}
+
+
+- (IBAction)tappedSettingButton:(id)sender {
+}
+
+
+#pragma mark - LXReorderableCollectionViewDelegateFlowLayout
+
+- (BOOL)collectionView:(UICollectionView *)collectionView canMoveItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    return self.dataSource.count == indexPath.item ? NO : YES;
+}
+- (BOOL)collectionView:(UICollectionView *)collectionView itemAtIndexPath:(NSIndexPath *)fromIndexPath canMoveToIndexPath:(NSIndexPath *)toIndexPath
+{
+    return self.dataSource.count == toIndexPath.item ? NO : YES;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView itemAtIndexPath:(NSIndexPath *)fromIndexPath willMoveToIndexPath:(NSIndexPath *)toIndexPath
+{
+    NWPCard *card = [self.dataSource objectAtIndex:fromIndexPath.item];
+    
+    NSUInteger minIndex = MIN(fromIndexPath.item, toIndexPath.item);
+    NSUInteger maxIndex = MAX(fromIndexPath.item, toIndexPath.item);
+    
+    NSUInteger orderNo = [[(NWPCard *) self.dataSource[ minIndex ] orderNum] integerValue];
+    
+    
+    NSMutableArray *array = self.dataSource.mutableCopy;
+    
+    [array removeObjectAtIndex:fromIndexPath.item];
+    [array insertObject:card atIndex:toIndexPath.item];
+    
+    self.dataSource = [NSArray arrayWithArray:array];
+    
+    for (int i = minIndex; i <= maxIndex; i++) {
+        NWPCard *c = self.dataSource[ i ];
+        c.orderNum = @(orderNo);
+        orderNo++;
+    }
+    
+    [[NSManagedObjectContext MR_defaultContext] saveToPersistentStoreAndWait];
+}
+
+
+
+
+#pragma mark -
+#pragma mark admod
+
+- (void)adViewDidReceiveAd:(GADBannerView *)banner
+{
+    LOGTrace;
+    if (self.adMobIsVisible) { return; }
+    
+    self.adMobIsVisible = YES;
+    
+    self.adMobView.originY = self.view.height;
+    self.adMobView.hidden  = NO;
+    [UIView animateWithDuration:0.3f
+                     animations:^{
+                         self.adMobView.originY -= self.adMobView.height;
+                         self.settingButton.originY -= self.adMobView.height;
+                     } completion:^(BOOL finished) {
+                         UIEdgeInsets insets = self.collectionView.contentInset;
+                         insets.bottom = +self.adMobView.height;
+                         self.collectionView.contentInset = insets;
+                         self.settingButtonBottomLayout.constant = self.adMobView.height;
+                     }];
+}
+
+- (void)adView:(GADBannerView *)banner didFailToReceiveAdWithError:(GADRequestError *)error
+{
+    LOGTrace;
+    if (!self.adMobIsVisible) { return; }
+    self.adMobIsVisible = NO;
+    
+    [UIView animateWithDuration:0.3f
+                     animations:^{
+                         self.adMobView.originY = self.view.height;
+                         self.settingButton.originY += self.adMobView.height;
+                     } completion:^(BOOL finished) {
+                         self.adMobView.hidden = YES;
+                         UIEdgeInsets insets = self.collectionView.contentInset;
+                         insets.bottom = 0;
+                         self.collectionView.contentInset = insets;
+                         self.settingButtonBottomLayout.constant = 0;
+                     }];
 }
 
 

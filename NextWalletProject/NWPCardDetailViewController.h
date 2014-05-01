@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NWPCardDetailViewController : UIViewController
+#import <GAITrackedViewController.h>
+
+@interface NWPCardDetailViewController : GAITrackedViewController
 
 @property (nonatomic) NWPCard* card;
 

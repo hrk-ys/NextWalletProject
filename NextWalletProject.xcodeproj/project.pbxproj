@@ -24,6 +24,7 @@
 		E998442218CCC794003C3EC0 /* NWPCardDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E998442118CCC794003C3EC0 /* NWPCardDetailViewController.m */; };
 		E998442518CCC7B7003C3EC0 /* NWPSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E998442418CCC7B7003C3EC0 /* NWPSettingViewController.m */; };
 		E998442818CCC7D2003C3EC0 /* NWPCardEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E998442718CCC7D2003C3EC0 /* NWPCardEditViewController.m */; };
+		E99935B4191154BD0099689B /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E99935B3191154BD0099689B /* Settings.bundle */; };
 		E9A4A72918CCA897006FEB50 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9A4A72818CCA897006FEB50 /* Foundation.framework */; };
 		E9A4A72B18CCA897006FEB50 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9A4A72A18CCA897006FEB50 /* CoreGraphics.framework */; };
 		E9A4A72D18CCA897006FEB50 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9A4A72C18CCA897006FEB50 /* UIKit.framework */; };
@@ -70,7 +71,6 @@
 		E9D96FC6190B7C4200129E1F /* zbar-samples.png in Resources */ = {isa = PBXBuildFile; fileRef = E9D96FC1190B7C4200129E1F /* zbar-samples.png */; };
 		E9D96FD2190B83C600129E1F /* NWPBarcodeImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D96FD1190B83C600129E1F /* NWPBarcodeImageView.m */; };
 		E9D96FD5190BD44900129E1F /* NWPSuccessButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D96FD4190BD44900129E1F /* NWPSuccessButton.m */; };
-		E9D96FD8190BE56500129E1F /* Reveal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9D96FD7190BE56500129E1F /* Reveal.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -117,6 +117,7 @@
 		E998442418CCC7B7003C3EC0 /* NWPSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWPSettingViewController.m; sourceTree = "<group>"; };
 		E998442618CCC7D2003C3EC0 /* NWPCardEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWPCardEditViewController.h; sourceTree = "<group>"; };
 		E998442718CCC7D2003C3EC0 /* NWPCardEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWPCardEditViewController.m; sourceTree = "<group>"; };
+		E99935B3191154BD0099689B /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		E9A4A72518CCA897006FEB50 /* NextWalletProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NextWalletProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9A4A72818CCA897006FEB50 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E9A4A72A18CCA897006FEB50 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -217,7 +218,6 @@
 		E9D96FD1190B83C600129E1F /* NWPBarcodeImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWPBarcodeImageView.m; sourceTree = "<group>"; };
 		E9D96FD3190BD44900129E1F /* NWPSuccessButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWPSuccessButton.h; sourceTree = "<group>"; };
 		E9D96FD4190BD44900129E1F /* NWPSuccessButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWPSuccessButton.m; sourceTree = "<group>"; };
-		E9D96FD7190BE56500129E1F /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Reveal.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -227,7 +227,6 @@
 			files = (
 				E9A4A72B18CCA897006FEB50 /* CoreGraphics.framework in Frameworks */,
 				E9A4A72D18CCA897006FEB50 /* UIKit.framework in Frameworks */,
-				E9D96FD8190BE56500129E1F /* Reveal.framework in Frameworks */,
 				E9A4A72918CCA897006FEB50 /* Foundation.framework in Frameworks */,
 				35D671C286574835A2EEECB5 /* libPods.a in Frameworks */,
 			);
@@ -360,7 +359,6 @@
 				E9A4A72C18CCA897006FEB50 /* UIKit.framework */,
 				E9A4A74718CCA897006FEB50 /* XCTest.framework */,
 				69791FAFA20240739059AAF4 /* libPods.a */,
-				E9D96FD7190BE56500129E1F /* Reveal.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -390,6 +388,7 @@
 				E9A4A73118CCA897006FEB50 /* InfoPlist.strings */,
 				E9A4A73418CCA897006FEB50 /* main.m */,
 				E9A4A73618CCA897006FEB50 /* NextWalletProject-Prefix.pch */,
+				E99935B3191154BD0099689B /* Settings.bundle */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -624,6 +623,7 @@
 				E9D96FC6190B7C4200129E1F /* zbar-samples.png in Resources */,
 				E9D96FC4190B7C4200129E1F /* zbar-help.html in Resources */,
 				E9D96FC3190B7C4200129E1F /* zbar-back.png in Resources */,
+				E99935B4191154BD0099689B /* Settings.bundle in Resources */,
 				E9D96FC5190B7C4200129E1F /* zbar-helpicons.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -864,6 +864,7 @@
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
+					"-lGoogleAdMobAds",
 					"-lGoogleAnalyticsServices",
 					"-liconv",
 					"-lz",
@@ -898,9 +899,12 @@
 					"-weak_framework",
 					AdSupport,
 					"-framework",
-					Reveal,
+					CoreTelephony,
+					"-framework",
+					StoreKit,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "4CCF0433-BF3F-41E6-A493-C67BDE9E1DFB";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
@@ -926,6 +930,7 @@
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
+					"-lGoogleAdMobAds",
 					"-lGoogleAnalyticsServices",
 					"-liconv",
 					"-lz",
@@ -960,9 +965,12 @@
 					"-weak_framework",
 					AdSupport,
 					"-framework",
-					Reveal,
+					CoreTelephony,
+					"-framework",
+					StoreKit,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "4CCF0433-BF3F-41E6-A493-C67BDE9E1DFB";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};

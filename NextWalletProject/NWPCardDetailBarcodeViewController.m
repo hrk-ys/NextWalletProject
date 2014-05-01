@@ -10,14 +10,15 @@
 
 #import "NWPBarcodeImageView.h"
 
+#import <Social/Social.h>
+
+
 @interface NWPCardDetailBarcodeViewController ()
 
 @property (weak, nonatomic) IBOutlet UIScrollView  *scrollView;
 @property (weak, nonatomic) IBOutlet UIView *barcodeWrapView;
 @property (weak, nonatomic) IBOutlet NWPBarcodeImageView *barcodeView;
 @property (weak, nonatomic) IBOutlet UILabel *barcodeNoLabel;
-
-
 
 @property (nonatomic) float brightness;
 
@@ -83,6 +84,28 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+}
+
+- (IBAction)tappedReportButton:(id)sender {
+    
+    NSString* barcodeType = self.card.barcodeType;
+    [self showTwitterPost:S(@".@NextWalletProject %@ [お問い合わせ内容を入してください]", barcodeType)];
+}
+
+
+- (void)showTwitterPost:(NSString*)message
+{
+    SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
+    
+    [controller setInitialText:message];
+    [controller setCompletionHandler:^(SLComposeViewControllerResult result) {
+        if (result == SLComposeViewControllerResultDone) {
+        } else if (result == SLComposeViewControllerResultCancelled) {
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
+    }];
+    
+    [self presentViewController:controller animated:YES completion:nil];
 }
 
 

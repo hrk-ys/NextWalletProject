@@ -89,7 +89,7 @@
 - (IBAction)tappedReportButton:(id)sender {
     
     NSString* barcodeType = self.card.barcodeType;
-    [self showTwitterPost:S(@".@NextWalletProject %@ [お問い合わせ内容を入してください]", barcodeType)];
+    [self showTwitterPost:S(@".%@ %@ [お問い合わせ内容を入してください]", TWITTER_ACCOUNT, barcodeType)];
 }
 
 

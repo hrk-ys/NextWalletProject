@@ -26,6 +26,7 @@
 
 #import "NWPCard.h"
 
+#define TWITTER_ACCOUNT @"@NWP_App"
 #define BG_COLOR [UIColor colorWithWhite:.22745098 alpha:1.0]
 
 #endif

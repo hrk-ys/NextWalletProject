@@ -43,7 +43,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == 0) {
-        [self showTwitterPost:@".@NextWalletProject [お問い合わせ内容を入してください]"];
+        [self showTwitterPost:S(@".%@ [お問い合わせ内容を入してください]", TWITTER_ACCOUNT)];
     }
 }
 

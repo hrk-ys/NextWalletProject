@@ -189,7 +189,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cpv-Rt-5ls" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1270" y="497"/>
+            <point key="canvasLocation" x="1329" y="497"/>
         </scene>
         <!--Card Create View Controller-->
         <scene sceneID="8hg-mp-5ja">
@@ -776,7 +776,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aRB-g7-kXk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1305.5" y="1925"/>
+            <point key="canvasLocation" x="1329" y="1925"/>
         </scene>
         <!--Card Detail Barcode View Controller-->
         <scene sceneID="gEE-MX-oVO">

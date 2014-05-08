@@ -12,11 +12,13 @@
 #import <GADBannerView.h>
 #import <GADRequest.h>
 #import <LXReorderableCollectionViewFlowLayout.h>
+#import <BlocksKit+UIKit.h>
 
 #import "NWPFadeAnimationController.h"
 
 #import "NWPCardDetailViewController.h"
 #import "NWPCardCell.h"
+#import "NWPPasswordManager.h"
 
 @interface NWPCardListViewController ()
 <UICollectionViewDataSource, UIViewControllerTransitioningDelegate, GADBannerViewDelegate,
@@ -140,6 +142,60 @@ LXReorderableCollectionViewDataSource>
     return cell;
 }
 
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
+{
+    if (! [identifier isEqualToString:@"detail"]) {
+        return YES;
+    }
+    
+    UICollectionViewCell* cell = sender;
+    NSIndexPath* indexPath = [self.collectionView indexPathForCell:cell];
+    NWPCard* card = self.dataSource[indexPath.item];
+    if (![card isSecretCardType]) {
+        return YES;
+    }
+    
+    NWPPasswordManager* passMgr = [NWPPasswordManager sharedInstance];
+    
+    
+    if ([passMgr hasPassword]) {
+        
+        if (![passMgr isPassLocked]) {
+            return YES;
+        }
+
+        [passMgr validPasswordFromViewController:self
+                                           title:@"パスワード"
+                                        animated:YES
+                                         success:^{
+                                             [self performSegueWithIdentifier:@"detail" sender:cell];
+                                         }
+                                          cancel:^{}];
+    } else if (![passMgr recommendSetPass]) {
+
+        passMgr.recommendSetPass = YES;
+        
+        UIAlertView* av = [[UIAlertView alloc] bk_initWithTitle:@"パスワード設定" message:@"免許、保険証、各種証明書、キャッシュカード、クレジットカード等はパスワードで保護することができます。パスワードを設定しますか？"];
+        [av bk_setCancelButtonWithTitle:@"キャンセル" handler:^{
+            [self performSegueWithIdentifier:@"detail" sender:cell];
+        }];
+        [av bk_addButtonWithTitle:@"登録する" handler:^{
+            [passMgr registPasswordFromViewController:self
+                                                title:@"パスワード登録"
+                                             animated:YES
+                                              success:^{
+                                                  [self performSegueWithIdentifier:@"detail" sender:cell];
+                                              }
+                                               cancel:^{}];
+        }];
+        
+        [av show];
+    } else {
+        [self performSegueWithIdentifier:@"detail" sender:cell];        
+    }
+    
+    return NO;
+}
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {

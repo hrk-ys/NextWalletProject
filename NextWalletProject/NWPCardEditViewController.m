@@ -10,6 +10,8 @@
 
 #import "NWPCardCaptureViewController.h"
 
+#import <BlocksKit+UIKit.h>
+
 @interface NWPCardEditViewController ()
 <NWPCardCreateBaseViewControllerDelegate>
 
@@ -103,12 +105,20 @@
 
 - (IBAction)tappedDeleteButton:(id)sender {
     
-    NSManagedObjectContext* context = self.card.managedObjectContext;
-    [self.card deleteEntity];
-    [context saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
-        [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    UIAlertView* av = [[UIAlertView alloc] bk_initWithTitle:@"確認" message:@"カードを削除しますか？"];
+    [av bk_setCancelButtonWithTitle:@"キャンセル" handler:^{}];
+    
+    [av bk_addButtonWithTitle:@"リセット" handler:^{
+        
+        
+        NSManagedObjectContext* context = self.card.managedObjectContext;
+        [self.card deleteEntity];
+        [context saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
+            [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+        }];
     }];
     
+    [av show];
 }
 
 @end

@@ -1,0 +1,9 @@
+/* 
+  THPinViewController.strings
+  NextWalletProject
+
+  Created by Hiroki Yoshifuji on 2014/05/08.
+  Copyright (c) 2014年 Hiroki Yoshifuji. All rights reserved.
+*/
+"cancel_button_title" = "キャンセル";
+"delete_button_title" = "削除";

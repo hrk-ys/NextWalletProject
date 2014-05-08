@@ -13,6 +13,8 @@ pod 'Google-Mobile-Ads-SDK', '6.8.0'
 pod 'JDStatusBarNotification', '~> 1.4.7'
 pod 'BlocksKit', '2.2.2'
 
+pod 'THPinViewController', '~> 1.1.2'
+
 pod 'HYUtils', :git => 'https://github.com/hrk-ys/HYUtils.git', :commit => '60665d2334116f223e7d2418b8f06d655341eda8'
 
 post_install do | installer |

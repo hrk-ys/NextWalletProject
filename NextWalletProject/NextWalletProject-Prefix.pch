@@ -23,6 +23,7 @@
 
 #import <HYUtils.h>
 #import <Mixpanel.h>
+#import <JDStatusBarNotification.h>
 
 #import "NWPCard.h"
 

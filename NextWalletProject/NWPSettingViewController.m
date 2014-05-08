@@ -7,8 +7,17 @@
 //
 
 #import "NWPSettingViewController.h"
+
+#import "NWPPasswordManager.h"
+
+#import <BlocksKit+UIKit.h>
 #import <Social/Social.h>
 
+typedef NS_ENUM(NSUInteger, NWPSettingRowIndex) {
+    NWPSettingRowIndexInquiry = 0,
+    NWPSettingRowIndexPassSetting = 1,
+    NWPSettingRowIndexPassReset = 2,
+};
 @interface NWPSettingViewController ()
 
 @end
@@ -30,7 +39,6 @@
 	// Do any additional setup after loading the view.
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStylePlain target:self action:@selector(close:)];
-
 }
 
 - (void)didReceiveMemoryWarning
@@ -42,8 +50,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 0) {
+    if (indexPath.row == NWPSettingRowIndexInquiry) {
         [self showTwitterPost:S(@".%@ [お問い合わせ内容を入してください]", TWITTER_ACCOUNT)];
+    }
+    if (indexPath.row == NWPSettingRowIndexPassSetting) {
+        [self passwordSetting];
+    }
+    if (indexPath.row == NWPSettingRowIndexPassReset) {
+        [self passwordReset];
     }
 }
 
@@ -62,6 +76,59 @@
     [self presentViewController:controller animated:YES completion:nil];
 }
 
+- (void)passwordRegist {
+    
+    NWPPasswordManager* passwordMgr = [NWPPasswordManager sharedInstance];
+    [passwordMgr registPasswordFromViewController:self
+                                            title:@"新しいパスワード"
+                                         animated:YES
+                                          success:^{
+                                              [JDStatusBarNotification showWithStatus:@"登録しました" dismissAfter:3.f];
+                                          }
+                                           cancel:^{}];
+}
+
+- (void)passwordSetting {
+
+    NWPPasswordManager* passwordMgr = [NWPPasswordManager sharedInstance];
+    
+    if ([passwordMgr hasPassword]) {
+        
+        [passwordMgr validPasswordFromViewController:self
+                                               title:@"古いパスワード"
+                                            animated:YES
+                                             success:^{
+                                                 [self passwordRegist];
+                                             }
+                                              cancel:^{}];
+    } else {
+        [self passwordRegist];
+    }
+}
+
+- (void)passwordReset {
+
+    UIAlertView* av = [[UIAlertView alloc] bk_initWithTitle:@"パスワードリセット" message:@"パスワードをリセットすると、保護されているカードはすべて削除されます"];
+    [av bk_setCancelButtonWithTitle:@"キャンセル" handler:^{}];
+
+    [av bk_addButtonWithTitle:@"リセット" handler:^{
+
+        NSMutableArray* cards = @[].mutableCopy;
+        [cards addObjectsFromArray:[NWPCard findByAttribute:@"cardType" withValue:@(NWPCardTypeCredit)]];
+        [cards addObjectsFromArray:[NWPCard findByAttribute:@"cardType" withValue:@(NWPCardTypeLicense)]];
+        
+        NSManagedObjectContext* context = [NSManagedObjectContext defaultContext];
+        for (NWPCard* card in cards) {
+            [context deleteObject:card];
+        }
+        [context saveToPersistentStoreAndWait];
+        
+        [[NWPPasswordManager sharedInstance] resetPassword];
+        
+        [JDStatusBarNotification showWithStatus:@"パスワードをリセットしました" dismissAfter:3.f];
+    }];
+    [av show];
+}
 
 - (void)close:(id)sender {
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];

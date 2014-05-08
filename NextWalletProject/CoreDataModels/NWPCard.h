@@ -23,7 +23,7 @@ typedef NS_ENUM(NSInteger, NWPCardType) {
 @property (nonatomic, retain) UIImage *preBackImage;
 
 
-
+- (BOOL)isSecretCardType;
 
 //------------------------------------------------------------------------------
 

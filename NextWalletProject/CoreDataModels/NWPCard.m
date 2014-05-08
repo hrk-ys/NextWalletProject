@@ -4,7 +4,7 @@
 #import <ZXingObjC.h>
 
 
-
+#import "NSData+AES256.h"
 
 @interface NWPCard ()
 {
@@ -27,10 +27,26 @@
     _backImage  = nil;
 }
 
+- (void)prepareForDeletion
+{
+    if (self.frontImageFile) {
+        [self.class removeImagePath:self.frontImageFile];
+    }
+    if (self.backImageFile) {
+        [self.class removeImagePath:self.backImageFile];
+    }
+}
+
 // Custom logic goes here.
 @synthesize preFrontImage = _preFrontImage;
 @synthesize preBackImage  = _preBackImage;
 
+- (BOOL)isSecretCardType
+{
+    return self.cardTypeValue == NWPCardTypeCredit
+    || self.cardTypeValue == NWPCardTypeLicense;
+    
+}
 
 #pragma mark - card type
 
@@ -55,6 +71,19 @@
 
 #pragma mark - file management
 
++ (NSString *)secretKey
+{
+    NSUserDefaults* ud = [NSUserDefaults standardUserDefaults];
+    NSString* key = [ud objectForKey:@"kImageSecretKey"];
+    if (!key) {
+        key = [[NSUUID UUID] UUIDString];
+        key = [key stringByReplacingOccurrencesOfString:@"-" withString:@""];
+        [ud setObject:key forKey:@"kImageSecretKey"];
+        [ud synchronize];
+    }
+    return key;
+}
+
 + (NSString *)storePath
 {
     static dispatch_once_t onceToken;
@@ -78,9 +107,10 @@
     return directory;
 }
 
-+ (void)writeImage:(UIImage *)image toImagePath:(NSString *)imagePath
++ (void)writeImage:(UIImage *)image toImagePath:(NSString *)imagePath secret:(BOOL)secret
 {
     NSData   *imageData = [[NSData alloc] initWithData:UIImageJPEGRepresentation(image, 0.8)];
+    if (secret) imageData = [imageData AES256EncryptWithKey:self.secretKey];
     NSString *filePath  = [[self.class storePath] stringByAppendingPathComponent:imagePath];
     [imageData writeToFile:filePath atomically:YES];
 }
@@ -105,7 +135,7 @@
         
         self.frontImageFile = S(@"front-%@.jpg", [[NSUUID UUID] UUIDString]);
         
-        [self.class writeImage:self.preFrontImage toImagePath:self.frontImageFile];
+        [self.class writeImage:self.preFrontImage toImagePath:self.frontImageFile secret:[self isSecretCardType]];
         
         _frontImage = self.preFrontImage;
     }
@@ -117,7 +147,7 @@
         
         self.backImageFile = S(@"back-%@.jpg", [[NSUUID UUID] UUIDString]);
         
-        [self.class writeImage:self.preBackImage toImagePath:self.backImageFile];
+        [self.class writeImage:self.preBackImage toImagePath:self.backImageFile secret:[self isSecretCardType]];
         
         _backImage = self.preBackImage;
     }
@@ -127,7 +157,12 @@
 {
     if  (self.frontImageFile && !_frontImage) {
         NSString *filePath = [self frontImagePath];
-        _frontImage = [[UIImage alloc] initWithContentsOfFile:filePath];
+        if (self.isSecretCardType) {
+            NSData* data = [NSData dataWithContentsOfFile:filePath];
+            _frontImage = [UIImage imageWithData:[data AES256DecryptWithKey:[self.class secretKey]]];
+        } else {
+            _frontImage = [[UIImage alloc] initWithContentsOfFile:filePath];
+        }
     }
     
     return _frontImage;
@@ -147,7 +182,14 @@
 {
     if  (self.backImageFile && !_backImage) {
         NSString *filePath = [self backImagePath];
-        _backImage = [[UIImage alloc] initWithContentsOfFile:filePath];
+        
+        if (self.isSecretCardType) {
+            NSData* data = [NSData dataWithContentsOfFile:filePath];
+            _backImage = [UIImage imageWithData:[data AES256DecryptWithKey:[self.class secretKey]]];
+        } else {
+
+            _backImage = [[UIImage alloc] initWithContentsOfFile:filePath];
+        }
     }
     
     return _backImage;

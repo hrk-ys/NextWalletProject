@@ -42,6 +42,15 @@ void HandleExceptions(NSException *exception)
     // CoreData
     [MagicalRecord setupAutoMigratingCoreDataStack];
     
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        [JDStatusBarNotification setDefaultStyle:^JDStatusBarStyle *(JDStatusBarStyle *style) {
+            style.barColor = [UIColor colorWithWhite:0.888 alpha:1.000];
+            style.textColor = [UIColor blackColor];
+            return style;
+        }];
+    });
+
     return YES;
 }
 							

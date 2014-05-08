@@ -13,6 +13,9 @@
 		E97CC130190DC5FC00962715 /* NWPFadeAnimationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E97CC12F190DC5FC00962715 /* NWPFadeAnimationController.m */; };
 		E97CC133190DD29D00962715 /* NWPCardTypeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E97CC132190DD29D00962715 /* NWPCardTypeCell.m */; };
 		E97CC136190F17E700962715 /* NWPCardDetailDefaultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E97CC135190F17E700962715 /* NWPCardDetailDefaultViewController.m */; };
+		E996553A191A74C200949E3C /* NWPPasswordManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E9965539191A74C200949E3C /* NWPPasswordManager.m */; };
+		E9965544191A826500949E3C /* THPinViewController.strings in Resources */ = {isa = PBXBuildFile; fileRef = E9965543191A826500949E3C /* THPinViewController.strings */; };
+		E9965548191BC04A00949E3C /* NSData+AES256.m in Sources */ = {isa = PBXBuildFile; fileRef = E9965547191BC04A00949E3C /* NSData+AES256.m */; };
 		E998440818CCAD63003C3EC0 /* NWPCardListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E998440718CCAD63003C3EC0 /* NWPCardListViewController.m */; };
 		E998440C18CCAF9D003C3EC0 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E998440A18CCAF9D003C3EC0 /* Model.xcdatamodeld */; };
 		E998441218CCB6A5003C3EC0 /* _NWPCard.m in Sources */ = {isa = PBXBuildFile; fileRef = E998440F18CCB6A5003C3EC0 /* _NWPCard.m */; };
@@ -96,6 +99,12 @@
 		E97CC132190DD29D00962715 /* NWPCardTypeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWPCardTypeCell.m; sourceTree = "<group>"; };
 		E97CC134190F17E700962715 /* NWPCardDetailDefaultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWPCardDetailDefaultViewController.h; sourceTree = "<group>"; };
 		E97CC135190F17E700962715 /* NWPCardDetailDefaultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWPCardDetailDefaultViewController.m; sourceTree = "<group>"; };
+		E9965538191A74C200949E3C /* NWPPasswordManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWPPasswordManager.h; sourceTree = "<group>"; };
+		E9965539191A74C200949E3C /* NWPPasswordManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWPPasswordManager.m; sourceTree = "<group>"; };
+		E996553B191A771300949E3C /* libcommonCrypto.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcommonCrypto.dylib; path = usr/lib/system/libcommonCrypto.dylib; sourceTree = SDKROOT; };
+		E9965543191A826500949E3C /* THPinViewController.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = THPinViewController.strings; sourceTree = "<group>"; };
+		E9965546191BC04A00949E3C /* NSData+AES256.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+AES256.h"; sourceTree = "<group>"; };
+		E9965547191BC04A00949E3C /* NSData+AES256.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+AES256.m"; sourceTree = "<group>"; };
 		E998440618CCAD63003C3EC0 /* NWPCardListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWPCardListViewController.h; sourceTree = "<group>"; };
 		E998440718CCAD63003C3EC0 /* NWPCardListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWPCardListViewController.m; sourceTree = "<group>"; };
 		E998440B18CCAF9D003C3EC0 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
@@ -260,9 +269,20 @@
 			name = DetailView;
 			sourceTree = "<group>";
 		};
+		E9965545191BC02300949E3C /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				E9965546191BC04A00949E3C /* NSData+AES256.h */,
+				E9965547191BC04A00949E3C /* NSData+AES256.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
 		E998440318CCAD22003C3EC0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				E9965538191A74C200949E3C /* NWPPasswordManager.h */,
+				E9965539191A74C200949E3C /* NWPPasswordManager.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -354,6 +374,7 @@
 		E9A4A72718CCA897006FEB50 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E996553B191A771300949E3C /* libcommonCrypto.dylib */,
 				E9A4A72818CCA897006FEB50 /* Foundation.framework */,
 				E9A4A72A18CCA897006FEB50 /* CoreGraphics.framework */,
 				E9A4A72C18CCA897006FEB50 /* UIKit.framework */,
@@ -366,6 +387,7 @@
 		E9A4A72E18CCA897006FEB50 /* NextWalletProject */ = {
 			isa = PBXGroup;
 			children = (
+				E9965545191BC02300949E3C /* Categories */,
 				E998440D18CCB6A5003C3EC0 /* CoreDataModels */,
 				E998440518CCAD3A003C3EC0 /* Controllers */,
 				E998440318CCAD22003C3EC0 /* Models */,
@@ -389,6 +411,7 @@
 				E9A4A73418CCA897006FEB50 /* main.m */,
 				E9A4A73618CCA897006FEB50 /* NextWalletProject-Prefix.pch */,
 				E99935B3191154BD0099689B /* Settings.bundle */,
+				E9965543191A826500949E3C /* THPinViewController.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -587,6 +610,9 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Hiroki Yoshifuji";
 				TargetAttributes = {
+					E9A4A72418CCA897006FEB50 = {
+						DevelopmentTeam = Z8E8FLY423;
+					};
 					E9A4A74518CCA897006FEB50 = {
 						TestTargetID = E9A4A72418CCA897006FEB50;
 					};
@@ -623,6 +649,7 @@
 				E9D96FC6190B7C4200129E1F /* zbar-samples.png in Resources */,
 				E9D96FC4190B7C4200129E1F /* zbar-help.html in Resources */,
 				E9D96FC3190B7C4200129E1F /* zbar-back.png in Resources */,
+				E9965544191A826500949E3C /* THPinViewController.strings in Resources */,
 				E99935B4191154BD0099689B /* Settings.bundle in Resources */,
 				E9D96FC5190B7C4200129E1F /* zbar-helpicons.png in Resources */,
 			);
@@ -685,6 +712,7 @@
 				E9D96F8C190B698200129E1F /* NKDInterleavedTwoOfFiveBarcode.m in Sources */,
 				E97CC12A190C04A700962715 /* NWPCardDetailBaseViewController.m in Sources */,
 				E9D96F81190B698200129E1F /* JapanPostBarcode.m in Sources */,
+				E996553A191A74C200949E3C /* NWPPasswordManager.m in Sources */,
 				E9D96FD5190BD44900129E1F /* NWPSuccessButton.m in Sources */,
 				E9D96F93190B698200129E1F /* NKDUPCEBarcode.m in Sources */,
 				E9A4A73918CCA897006FEB50 /* NWPAppDelegate.m in Sources */,
@@ -697,6 +725,7 @@
 				E97CC133190DD29D00962715 /* NWPCardTypeCell.m in Sources */,
 				E97CC136190F17E700962715 /* NWPCardDetailDefaultViewController.m in Sources */,
 				E9D96F8D190B698200129E1F /* NKDModifiedPlesseyBarcode.m in Sources */,
+				E9965548191BC04A00949E3C /* NSData+AES256.m in Sources */,
 				E9D96F83190B698200129E1F /* NKDBarcode.m in Sources */,
 				E9D96F96190B698200129E1F /* UIImage-NKDBarcode.m in Sources */,
 				E998441218CCB6A5003C3EC0 /* _NWPCard.m in Sources */,
@@ -852,6 +881,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -862,6 +892,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/NextWalletProject/Venders/ZBarSDK",
+					"$(SDKROOT)/usr/lib/system",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -918,7 +949,8 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -929,6 +961,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/NextWalletProject/Venders/ZBarSDK",
+					"$(SDKROOT)/usr/lib/system",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",

@@ -22,12 +22,13 @@
 
 @interface NWPCardListViewController ()
 <UICollectionViewDataSource, UIViewControllerTransitioningDelegate, GADBannerViewDelegate,
-LXReorderableCollectionViewDataSource>
+LXReorderableCollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
 @property (nonatomic) GADBannerView *adMobView;
 @property (nonatomic) BOOL           adMobIsVisible;
+@property (nonatomic) BOOL toggleCellSize;
 
 @property (nonatomic) NSArray* dataSource;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *settingButtonBottomLayout;
@@ -309,5 +310,23 @@ LXReorderableCollectionViewDataSource>
                      }];
 }
 
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    return _toggleCellSize ? CGSizeMake(140, 90) : CGSizeMake(90, 60);
+}
+
+-(void)tappedSizeChange {
+    _toggleCellSize = !_toggleCellSize;
+    [_collectionView reloadData];
+    
+//    [UIView animateWithDuration:0.3f animations:^{
+//        _detailView.frame = newFrame;
+//    } completion:^(BOOL finished) {
+//        [UIView animateWithDuration:0.3f animations:^{
+//            _detailView.frame = finishFrame;
+//        }];
+//    }];
+}
 
 @end

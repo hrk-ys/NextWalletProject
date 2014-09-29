@@ -1,14 +1,16 @@
 platform :ios, 7.0
 pod 'AFNetworking',  '2.1.0'
 pod 'SVProgressHUD', '1.0'
-pod 'SDWebImage',    '3.5.2'
+#pod 'SDWebImage'
+pod 'SDWebImage', '~>3.6'
 pod 'MagicalRecord/Shorthand', '2.2'
 pod 'LXReorderableCollectionViewFlowLayout', '0.1.1'
 pod 'ZXingObjC', '2.2.2'
 pod 'ZBarSDK'
 pod 'Mixpanel'
 pod 'GoogleAnalytics-iOS-SDK', '3.0.3'
-pod 'Google-Mobile-Ads-SDK', '6.8.0'
+pod 'Google-Mobile-Ads-SDK', '6.12.0'
+pod 'CocoaLumberjack', '1.8.1'
 
 pod 'JDStatusBarNotification', '~> 1.4.7'
 pod 'BlocksKit', '2.2.2'

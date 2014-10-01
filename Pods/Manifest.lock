@@ -95,7 +95,7 @@ DEPENDENCIES:
   - JDStatusBarNotification (~> 1.4.7)
   - LXReorderableCollectionViewFlowLayout (= 0.1.1)
   - MagicalRecord/Shorthand (= 2.2)
-  - Mixpanel
+  - Mixpanel (= 2.3.5)
   - SDWebImage (~> 3.6)
   - SVProgressHUD (= 1.0)
   - THPinViewController (~> 1.1.2)

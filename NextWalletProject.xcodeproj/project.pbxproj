@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		35D671C286574835A2EEECB5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 69791FAFA20240739059AAF4 /* libPods.a */; };
+		E95AD1D419D9932000A062AD /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95AD1D319D9932000A062AD /* Launch Screen.xib */; };
 		E97CC127190BFF8700962715 /* NWPCardDetailBarcodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E97CC126190BFF8700962715 /* NWPCardDetailBarcodeViewController.m */; };
 		E97CC12A190C04A700962715 /* NWPCardDetailBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E97CC129190C04A700962715 /* NWPCardDetailBaseViewController.m */; };
 		E97CC130190DC5FC00962715 /* NWPFadeAnimationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E97CC12F190DC5FC00962715 /* NWPFadeAnimationController.m */; };
@@ -89,6 +90,7 @@
 /* Begin PBXFileReference section */
 		69791FAFA20240739059AAF4 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5C41038DAE34327B7EE9918 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		E95AD1D319D9932000A062AD /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
 		E97CC125190BFF8700962715 /* NWPCardDetailBarcodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWPCardDetailBarcodeViewController.h; sourceTree = "<group>"; };
 		E97CC126190BFF8700962715 /* NWPCardDetailBarcodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWPCardDetailBarcodeViewController.m; sourceTree = "<group>"; };
 		E97CC128190C04A700962715 /* NWPCardDetailBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWPCardDetailBaseViewController.h; sourceTree = "<group>"; };
@@ -396,6 +398,7 @@
 				E9A4A73718CCA897006FEB50 /* NWPAppDelegate.h */,
 				E9A4A73818CCA897006FEB50 /* NWPAppDelegate.m */,
 				E9A4A73A18CCA897006FEB50 /* Main.storyboard */,
+				E95AD1D319D9932000A062AD /* Launch Screen.xib */,
 				E998440A18CCAF9D003C3EC0 /* Model.xcdatamodeld */,
 				E9A4A74018CCA897006FEB50 /* Images.xcassets */,
 				E9A4A72F18CCA897006FEB50 /* Supporting Files */,
@@ -647,6 +650,7 @@
 				E9D96F95190B698200129E1F /* README.md in Resources */,
 				E9A4A73C18CCA897006FEB50 /* Main.storyboard in Resources */,
 				E9D96FC6190B7C4200129E1F /* zbar-samples.png in Resources */,
+				E95AD1D419D9932000A062AD /* Launch Screen.xib in Resources */,
 				E9D96FC4190B7C4200129E1F /* zbar-help.html in Resources */,
 				E9D96FC3190B7C4200129E1F /* zbar-back.png in Resources */,
 				E9965544191A826500949E3C /* THPinViewController.strings in Resources */,

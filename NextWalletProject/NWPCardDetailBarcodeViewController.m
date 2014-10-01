@@ -42,6 +42,25 @@
     
     [_barcodeWrapView setBorderColor:nil borderWidth:0 cornerRadius:5.0f];
     [_barcodeView setCard:self.card];
+    
+
+    NSLayoutConstraint *leftConstraint = [NSLayoutConstraint constraintWithItem:self.scrollView
+                                                                      attribute:NSLayoutAttributeLeading
+                                                                      relatedBy:0
+                                                                         toItem:self.view
+                                                                      attribute:NSLayoutAttributeLeft
+                                                                     multiplier:1.0
+                                                                       constant:0];
+    [self.view addConstraint:leftConstraint];
+    
+    NSLayoutConstraint *rightConstraint = [NSLayoutConstraint constraintWithItem:self.scrollView
+                                                                       attribute:NSLayoutAttributeTrailing
+                                                                       relatedBy:0
+                                                                          toItem:self.view
+                                                                       attribute:NSLayoutAttributeRight
+                                                                      multiplier:1.0
+                                                                        constant:0];
+    [self.view addConstraint:rightConstraint];
 }
 
 

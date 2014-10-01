@@ -49,6 +49,22 @@
         view.center = self.selfWindow.center;
         [self.selfWindow addSubview:view];
 
+        [self.selfWindow addConstraint:[NSLayoutConstraint constraintWithItem:self.selfWindow
+                                                          attribute:NSLayoutAttributeCenterX
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:view
+                                                          attribute:NSLayoutAttributeCenterX
+                                                         multiplier:1.0
+                                                           constant:0.0]];
+
+        [self.selfWindow addConstraint:[NSLayoutConstraint constraintWithItem:self.selfWindow
+                                                                    attribute:NSLayoutAttributeCenterY
+                                                                    relatedBy:NSLayoutRelationEqual
+                                                                       toItem:view
+                                                                    attribute:NSLayoutAttributeCenterY
+                                                                   multiplier:1.0
+                                                                     constant:0.0]];
+
         self.disableTapGesture = YES;
     }
     

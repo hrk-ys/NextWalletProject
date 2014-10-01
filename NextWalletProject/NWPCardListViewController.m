@@ -54,6 +54,7 @@ LXReorderableCollectionViewDataSource, UICollectionViewDelegateFlowLayout>
     self.screenName  = @"CardListView";
     
     self.collectionView.backgroundColor = BG_COLOR;
+    self.toggleCellSize = YES;
     
     
     self.dataSource = [NWPCard findAllSortedBy:@"orderNum" ascending:YES];
@@ -313,7 +314,9 @@ LXReorderableCollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return _toggleCellSize ? CGSizeMake(140, 90) : CGSizeMake(90, 60);
+    float width = (self.view.width / 2.0f) - 16;
+    return CGSizeMake(width, width * 2 / 3);
+//    return _toggleCellSize ? CGSizeMake(140, 90) : CGSizeMake(90, 60);
 }
 
 -(void)tappedSizeChange {

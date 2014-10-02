@@ -8,19 +8,17 @@
 
 #import "THPinViewController.h"
 #import "THPinView.h"
+#import "UIImage+ImageEffects.h"
 
 @interface THPinViewController () <THPinViewDelegate>
 
 @property (nonatomic, strong) THPinView *pinView;
+@property (nonatomic, strong) UIView *blurView;
+@property (nonatomic, assign) NSArray *blurViewContraints;
 
 @end
 
 @implementation THPinViewController
-
-- (instancetype)init {
-    NSAssert(NO, @"use initWithDelegate:");
-    return nil;
-}
 
 - (instancetype)initWithDelegate:(id<THPinViewControllerDelegate>)delegate
 {
@@ -28,6 +26,7 @@
     if (self) {
         _delegate = delegate;
         _backgroundColor = [UIColor whiteColor];
+        _translucentBackground = NO;
         _promptTitle = NSLocalizedStringFromTable(@"prompt_title", @"THPinViewController", nil);
     }
     return self;
@@ -37,13 +36,19 @@
 {
     [super viewDidLoad];
     
-    self.view.backgroundColor = self.backgroundColor;
+    if (self.translucentBackground) {
+        self.view.backgroundColor = [UIColor clearColor];
+        [self addBlurView];
+    } else {
+        self.view.backgroundColor = self.backgroundColor;
+    }
     
     self.pinView = [[THPinView alloc] initWithDelegate:self];
     self.pinView.backgroundColor = self.view.backgroundColor;
     self.pinView.promptTitle = self.promptTitle;
     self.pinView.promptColor = self.promptColor;
     self.pinView.hideLetters = self.hideLetters;
+    self.pinView.disableCancel = self.disableCancel;
     self.pinView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view addSubview:self.pinView];
     // center pin view
@@ -76,8 +81,27 @@
         return;
     }
     _backgroundColor = backgroundColor;
-    self.view.backgroundColor = self.backgroundColor;
-    self.pinView.backgroundColor = self.backgroundColor;
+    if (! self.translucentBackground) {
+        self.view.backgroundColor = self.backgroundColor;
+        self.pinView.backgroundColor = self.backgroundColor;
+    }
+}
+
+- (void)setTranslucentBackground:(BOOL)translucentBackground
+{
+    if (self.translucentBackground == translucentBackground) {
+        return;
+    }
+    _translucentBackground = translucentBackground;
+    if (self.translucentBackground) {
+        self.view.backgroundColor = [UIColor clearColor];
+        self.pinView.backgroundColor = [UIColor clearColor];
+        [self addBlurView];
+    } else {
+        self.view.backgroundColor = self.backgroundColor;
+        self.pinView.backgroundColor = self.backgroundColor;
+        [self removeBlurView];
+    }
 }
 
 - (void)setPromptTitle:(NSString *)promptTitle
@@ -105,6 +129,54 @@
     }
     _hideLetters = hideLetters;
     self.pinView.hideLetters = self.hideLetters;
+}
+
+- (void)setDisableCancel:(BOOL)disableCancel
+{
+    if (self.disableCancel == disableCancel) {
+        return;
+    }
+    _disableCancel = disableCancel;
+    self.pinView.disableCancel = self.disableCancel;
+}
+
+#pragma mark - Blur
+
+- (void)addBlurView
+{
+    self.blurView = [[UIImageView alloc] initWithImage:[self blurredContentImage]];
+    self.blurView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view insertSubview:self.blurView belowSubview:self.pinView];
+    NSDictionary *views = @{ @"blurView" : self.blurView };
+    NSMutableArray *constraints =
+    [NSMutableArray arrayWithArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[blurView]|"
+                                                                           options:0 metrics:nil views:views]];
+    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[blurView]|"
+                                                                             options:0 metrics:nil views:views]];
+    self.blurViewContraints = constraints;
+    [self.view addConstraints:self.blurViewContraints];
+}
+
+- (void)removeBlurView
+{
+    [self.blurView removeFromSuperview];
+    self.blurView = nil;
+    [self.view removeConstraints:self.blurViewContraints];
+    self.blurViewContraints = nil;
+}
+
+- (UIImage*)blurredContentImage
+{
+    UIView *contentView = [[[UIApplication sharedApplication] keyWindow] viewWithTag:THPinViewControllerContentViewTag];
+    if (! contentView) {
+        return nil;
+    }
+    UIGraphicsBeginImageContext(self.view.bounds.size);
+    [contentView drawViewHierarchyInRect:self.view.bounds afterScreenUpdates:NO];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return [image applyBlurWithRadius:20.0f tintColor:[UIColor colorWithWhite:1.0f alpha:0.25f]
+                saturationDeltaFactor:1.8f maskImage:nil];
 }
 
 #pragma mark - THPinViewDelegate

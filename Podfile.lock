@@ -81,7 +81,7 @@ PODS:
     - libwebp
     - SDWebImage/Core
   - SVProgressHUD (1.0)
-  - THPinViewController (1.1.2)
+  - THPinViewController (1.2.2)
   - ZBarSDK (1.3.1)
   - ZXingObjC (2.2.2)
 
@@ -98,7 +98,7 @@ DEPENDENCIES:
   - Mixpanel (= 2.3.5)
   - SDWebImage (~> 3.6)
   - SVProgressHUD (= 1.0)
-  - THPinViewController (~> 1.1.2)
+  - THPinViewController (~> 1.2.2)
   - ZBarSDK
   - ZXingObjC (= 2.2.2)
 
@@ -121,7 +121,7 @@ SPEC CHECKSUMS:
   Mixpanel: 73ab2e90b651fee096a16448004df39ca535cd72
   SDWebImage: 116e88633b5b416ea0ca4b334a4ac59cf72dd38d
   SVProgressHUD: 5034c6e22b8c2ca3e09402e48d41ed0340aa1c50
-  THPinViewController: 1a054e6854fe3a3ae6919fc8f4954a15fe1467b1
+  THPinViewController: a03909be2ae42e613a68bf96330f693f3d608759
   ZBarSDK: 3ed560856963f765b66d834f464590bd6ba13b44
   ZXingObjC: 596343db2f396d518425098bb5e3a174fcdee780
 

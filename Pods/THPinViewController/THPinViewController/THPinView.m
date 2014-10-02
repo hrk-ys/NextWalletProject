@@ -28,11 +28,6 @@
 
 @implementation THPinView
 
-- (instancetype)init {
-    NSAssert(NO, @"use initWithDelegate:");
-    return nil;
-}
-
 - (instancetype)initWithDelegate:(id<THPinViewDelegate>)delegate
 {
     self = [super init];
@@ -181,16 +176,27 @@
     self.numPadView.hideLetters = hideLetters;
 }
 
+- (void)setDisableCancel:(BOOL)disableCancel
+{
+    if (self.disableCancel == disableCancel) {
+        return;
+    }
+    _disableCancel = disableCancel;
+    [self updateBottomButton];
+}
+
 #pragma mark - Public
 
 - (void)updateBottomButton
 {
     if ([self.input length] == 0) {
+        self.bottomButton.hidden = self.disableCancel;
         [self.bottomButton setTitle:NSLocalizedStringFromTable(@"cancel_button_title", @"THPinViewController", nil)
                            forState:UIControlStateNormal];
         [self.bottomButton removeTarget:self action:@selector(delete:) forControlEvents:UIControlEventTouchUpInside];
         [self.bottomButton addTarget:self action:@selector(cancel:) forControlEvents:UIControlEventTouchUpInside];
     } else {
+        self.bottomButton.hidden = NO;
         [self.bottomButton setTitle:NSLocalizedStringFromTable(@"delete_button_title", @"THPinViewController", nil)
                            forState:UIControlStateNormal];
         [self.bottomButton removeTarget:self action:@selector(cancel:) forControlEvents:UIControlEventTouchUpInside];
@@ -249,7 +255,6 @@
             [self.delegate incorrectPinWasEnteredInPinView:self];
         }];
     }
-    
 }
 
 #pragma mark - Util

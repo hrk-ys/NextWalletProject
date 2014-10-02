@@ -23,11 +23,6 @@
 
 @implementation THPinInputCirclesView
 
-- (instancetype)init {
-    NSAssert(NO, @"use initWithPinLength:");
-    return nil;
-}
-
 - (instancetype)initWithPinLength:(NSUInteger)pinLength
 {
     self = [super init];
@@ -44,6 +39,10 @@
             THPinInputCircleView* circleView = [[THPinInputCircleView alloc] init];
             circleView.translatesAutoresizingMaskIntoConstraints = NO;
             [self addSubview:circleView];
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:circleView attribute:NSLayoutAttributeTop
+                                                             relatedBy:NSLayoutRelationEqual
+                                                                toItem:self attribute:NSLayoutAttributeTop
+                                                            multiplier:1.0f constant:0.0f]];
             [_circleViews addObject:circleView];
             NSString *name = [NSString stringWithFormat:@"circle%lu", (unsigned long)i];
             if (i > 0) {

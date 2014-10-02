@@ -177,7 +177,7 @@
 // THPinViewController
 #define COCOAPODS_POD_AVAILABLE_THPinViewController
 #define COCOAPODS_VERSION_MAJOR_THPinViewController 1
-#define COCOAPODS_VERSION_MINOR_THPinViewController 1
+#define COCOAPODS_VERSION_MINOR_THPinViewController 2
 #define COCOAPODS_VERSION_PATCH_THPinViewController 2
 
 // ZBarSDK

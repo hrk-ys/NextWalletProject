@@ -17,7 +17,7 @@ pod 'BlocksKit', '2.2.2'
 
 pod 'THPinViewController', '~> 1.1.2'
 
-pod 'HYUtils', :git => 'https://github.com/hrk-ys/HYUtils.git', :commit => '60665d2334116f223e7d2418b8f06d655341eda8'
+pod 'HYUtils', :git => 'https://github.com/hrk-ys/HYUtils.git', :commit => 'aaab98760b92bb7a117c639811805ca9689ccd7a'
 
 post_install do | installer |
     require 'fileutils'

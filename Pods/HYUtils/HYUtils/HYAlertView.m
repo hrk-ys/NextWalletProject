@@ -39,24 +39,22 @@
         
         UIView *tapView = [[UIView alloc] initWithFrame:self.selfWindow.bounds];
         tapView.backgroundColor = [UIColor colorWithWhite:0.000 alpha:0.5];
-        tapView.userInteractionEnabled = YES;
         self.gesture            = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
         self.gesture.delegate   = self;
-        self.gesture.enabled    = YES;
         [tapView addGestureRecognizer:self.gesture];
         [self.selfWindow addSubview:tapView];
         
         view.center = self.selfWindow.center;
         [self.selfWindow addSubview:view];
-
+        
         [self.selfWindow addConstraint:[NSLayoutConstraint constraintWithItem:self.selfWindow
-                                                          attribute:NSLayoutAttributeCenterX
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:view
-                                                          attribute:NSLayoutAttributeCenterX
-                                                         multiplier:1.0
-                                                           constant:0.0]];
-
+                                                                    attribute:NSLayoutAttributeCenterX
+                                                                    relatedBy:NSLayoutRelationEqual
+                                                                       toItem:view
+                                                                    attribute:NSLayoutAttributeCenterX
+                                                                   multiplier:1.0
+                                                                     constant:0.0]];
+        
         [self.selfWindow addConstraint:[NSLayoutConstraint constraintWithItem:self.selfWindow
                                                                     attribute:NSLayoutAttributeCenterY
                                                                     relatedBy:NSLayoutRelationEqual
@@ -64,7 +62,7 @@
                                                                     attribute:NSLayoutAttributeCenterY
                                                                    multiplier:1.0
                                                                      constant:0.0]];
-
+        
         self.disableTapGesture = YES;
     }
     

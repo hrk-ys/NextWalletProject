@@ -107,27 +107,52 @@ typedef NS_ENUM(NSUInteger, NWPSettingRowIndex) {
 }
 
 - (void)passwordReset {
+    
+    if ([UIDevice iOSVersion] < 8.0f) {
 
-    UIAlertView* av = [[UIAlertView alloc] bk_initWithTitle:@"パスワードリセット" message:@"パスワードをリセットすると、保護されているカードはすべて削除されます"];
-    [av bk_setCancelButtonWithTitle:@"キャンセル" handler:^{}];
-
-    [av bk_addButtonWithTitle:@"リセット" handler:^{
-
-        NSMutableArray* cards = @[].mutableCopy;
-        [cards addObjectsFromArray:[NWPCard findByAttribute:@"cardType" withValue:@(NWPCardTypeCredit)]];
-        [cards addObjectsFromArray:[NWPCard findByAttribute:@"cardType" withValue:@(NWPCardTypeLicense)]];
+        UIAlertView* av = [[UIAlertView alloc] bk_initWithTitle:@"パスワードリセット" message:@"パスワードをリセットすると、保護されているカードはすべて削除されます"];
+        [av bk_setCancelButtonWithTitle:@"キャンセル" handler:^{}];
         
-        NSManagedObjectContext* context = [NSManagedObjectContext defaultContext];
-        for (NWPCard* card in cards) {
-            [context deleteObject:card];
-        }
-        [context saveToPersistentStoreAndWait];
+        [av bk_addButtonWithTitle:@"リセット" handler:^{
+            
+            NSMutableArray* cards = @[].mutableCopy;
+            [cards addObjectsFromArray:[NWPCard findByAttribute:@"cardType" withValue:@(NWPCardTypeCredit)]];
+            [cards addObjectsFromArray:[NWPCard findByAttribute:@"cardType" withValue:@(NWPCardTypeLicense)]];
+            
+            NSManagedObjectContext* context = [NSManagedObjectContext defaultContext];
+            for (NWPCard* card in cards) {
+                [context deleteObject:card];
+            }
+            [context saveToPersistentStoreAndWait];
+            
+            [[NWPPasswordManager sharedInstance] resetPassword];
+            
+            [JDStatusBarNotification showWithStatus:@"パスワードをリセットしました" dismissAfter:3.f];
+        }];
+        [av show];
+    } else {
+        UIAlertController* ac = [UIAlertController alertControllerWithTitle:@"パスワードリセット" message:@"パスワードをリセットすると、保護されているカードはすべて削除されます" preferredStyle:UIAlertControllerStyleAlert];
+        [ac addAction:[UIAlertAction actionWithTitle:@"キャンセル" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        }]];
         
-        [[NWPPasswordManager sharedInstance] resetPassword];
+        [ac addAction:[UIAlertAction actionWithTitle:@"リセット" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            NSMutableArray* cards = @[].mutableCopy;
+            [cards addObjectsFromArray:[NWPCard findByAttribute:@"cardType" withValue:@(NWPCardTypeCredit)]];
+            [cards addObjectsFromArray:[NWPCard findByAttribute:@"cardType" withValue:@(NWPCardTypeLicense)]];
+            
+            NSManagedObjectContext* context = [NSManagedObjectContext defaultContext];
+            for (NWPCard* card in cards) {
+                [context deleteObject:card];
+            }
+            [context saveToPersistentStoreAndWait];
+            
+            [[NWPPasswordManager sharedInstance] resetPassword];
+            
+            [JDStatusBarNotification showWithStatus:@"パスワードをリセットしました" dismissAfter:3.f];
+        }]];
         
-        [JDStatusBarNotification showWithStatus:@"パスワードをリセットしました" dismissAfter:3.f];
-    }];
-    [av show];
+        [self presentViewController:ac animated:YES completion:nil];
+    }
 }
 
 - (void)close:(id)sender {

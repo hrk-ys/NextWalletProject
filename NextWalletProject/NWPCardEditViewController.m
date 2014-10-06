@@ -105,20 +105,36 @@
 
 - (IBAction)tappedDeleteButton:(id)sender {
     
-    UIAlertView* av = [[UIAlertView alloc] bk_initWithTitle:@"確認" message:@"カードを削除しますか？"];
-    [av bk_setCancelButtonWithTitle:@"キャンセル" handler:^{}];
-    
-    [av bk_addButtonWithTitle:@"リセット" handler:^{
+    if ([UIDevice iOSVersion] < 8.0) {
+        UIAlertView* av = [[UIAlertView alloc] bk_initWithTitle:@"確認" message:@"カードを削除しますか？"];
+        [av bk_setCancelButtonWithTitle:@"キャンセル" handler:^{}];
         
-        
-        NSManagedObjectContext* context = self.card.managedObjectContext;
-        [self.card deleteEntity];
-        [context saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
-            [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+        [av bk_addButtonWithTitle:@"削除" handler:^{
+            
+            
+            NSManagedObjectContext* context = self.card.managedObjectContext;
+            [self.card deleteEntity];
+            [context saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
+                [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+            }];
         }];
-    }];
-    
-    [av show];
+        
+        [av show];
+    } else {
+        UIAlertController* ac = [UIAlertController alertControllerWithTitle:@"確認" message:@"カードを削除しますか？" preferredStyle:UIAlertControllerStyleAlert];
+        [ac addAction:[UIAlertAction actionWithTitle:@"キャンセル" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        }]];
+
+        [ac addAction:[UIAlertAction actionWithTitle:@"削除" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            NSManagedObjectContext* context = self.card.managedObjectContext;
+            [self.card deleteEntity];
+            [context saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
+                [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+            }];
+        }]];
+
+        [self presentViewController:ac animated:YES completion:nil];
+    }
 }
 
 @end

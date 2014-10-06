@@ -177,21 +177,41 @@ LXReorderableCollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
         passMgr.recommendSetPass = YES;
         
-        UIAlertView* av = [[UIAlertView alloc] bk_initWithTitle:@"パスワード設定" message:@"免許、保険証、各種証明書、キャッシュカード、クレジットカード等はパスワードで保護することができます。パスワードを設定しますか？"];
-        [av bk_setCancelButtonWithTitle:@"キャンセル" handler:^{
-            [self performSegueWithIdentifier:@"detail" sender:cell];
-        }];
-        [av bk_addButtonWithTitle:@"登録する" handler:^{
-            [passMgr registPasswordFromViewController:self
-                                                title:@"パスワード登録"
-                                             animated:YES
-                                              success:^{
-                                                  [self performSegueWithIdentifier:@"detail" sender:cell];
-                                              }
-                                               cancel:^{}];
-        }];
-        
-        [av show];
+        if ([UIDevice iOSVersion] < 8.0f) {
+            UIAlertView* av = [[UIAlertView alloc] bk_initWithTitle:@"パスワード設定" message:@"免許、保険証、各種証明書、キャッシュカード、クレジットカード等はパスワードで保護することができます。パスワードを設定しますか？"];
+            [av bk_setCancelButtonWithTitle:@"キャンセル" handler:^{
+                [self performSegueWithIdentifier:@"detail" sender:cell];
+            }];
+            [av bk_addButtonWithTitle:@"登録する" handler:^{
+                [passMgr registPasswordFromViewController:self
+                                                    title:@"パスワード登録"
+                                                 animated:YES
+                                                  success:^{
+                                                      [self performSegueWithIdentifier:@"detail" sender:cell];
+                                                  }
+                                                   cancel:^{}];
+            }];
+            
+            [av show];
+        } else {
+            UIAlertController* ac = [UIAlertController alertControllerWithTitle:@"パスワード設定" message:@"免許、保険証、各種証明書、キャッシュカード、クレジットカード等はパスワードで保護することができます。パスワードを設定しますか？" preferredStyle:UIAlertControllerStyleAlert];
+            [ac addAction:[UIAlertAction actionWithTitle:@"キャンセル" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+                [self performSegueWithIdentifier:@"detail" sender:cell];
+            }]];
+            
+            [ac addAction:[UIAlertAction actionWithTitle:@"登録する" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                [passMgr registPasswordFromViewController:self
+                                                    title:@"パスワード登録"
+                                                 animated:YES
+                                                  success:^{
+                                                      [self performSegueWithIdentifier:@"detail" sender:cell];
+                                                  }
+                                                   cancel:^{}];
+
+            }]];
+            
+            [self presentViewController:ac animated:YES completion:nil];
+        }
     } else {
         [self performSegueWithIdentifier:@"detail" sender:cell];        
     }
